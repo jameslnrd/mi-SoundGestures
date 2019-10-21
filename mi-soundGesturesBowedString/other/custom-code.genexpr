@@ -1,0 +1,301 @@
+
+
+init_multiple_masses(m_data, X0, XR0){
+	
+	data_dim = dim(m_data);
+	data_chans = channels(m_data);
+	
+	for(i=0; i< data_chans; i+=1){
+		poke(m_data, X0, 0, i);
+		poke(m_data, XR0, 1, i);
+	}
+	return data_dim, data_chans;
+}
+
+
+set_pos_at(m_data, i, val, val2){
+	poke(m_data, val,  0, i);
+	poke(m_data, val2,  1, i);
+	return 0;
+}
+
+
+get_pos_at(m_data, i){
+	return peek(m_data, 0, i);
+}
+
+
+listen_at(mult_data, lPos){
+	m1, m2, alpha = get_two_mass_ponderation(mult_data, lPos);
+	return (1-alpha)*get_pos_at(mult_data, m1) + alpha*get_pos_at(mult_data, m2); 
+}
+
+compute_string(m_data, M, K, Z){
+	Zosc = 0;
+	invM = 1/M;
+
+	data_chans = channels(m_data);
+	for(i=0; i< data_chans; i+=1){
+		if ((i==0) || (i == data_chans-1))
+			poke(m_data, 0, 2, i);
+		else {
+			tmp = (2 - Zosc*invM) * peek(m_data, 0, i) 
+				+ (Zosc * invM - 1) * peek(m_data,1, i)
+				+ (peek(m_data,2, i)) * invM;
+				
+			poke(m_data, peek(m_data, 0, i) , 1, i);
+			poke(m_data,tmp, 0, i);
+			poke(m_data, 0, 2, i);
+			}
+	}
+	
+	for(i=0; i< data_chans-1; i+=1) {
+		x1 = peek(m_data, 0, i);
+		x1r = peek(m_data, 1, i);
+		x2 = peek(m_data, 0, i+1);
+		x2r = peek(m_data, 1, i+1);
+	
+		f = K * (x1 - x2) + 
+			Z * ((x1-x1r) - (x2-x2r)) ;
+	
+		poke(m_data, peek(m_data,2, i) - f, 2, i);
+		poke(m_data, peek(m_data,2, i+1) + f, 2, i+1);
+
+		}
+		return 0;
+}
+
+
+compute_stiff_string(m_data, M, K, Ks, Z){
+	Zosc = 0;
+	invM = 1/M;
+
+
+	data_chans = channels(m_data);
+	for(i=0; i< data_chans; i+=1){
+		if ((i==0) || (i == data_chans-1))
+			poke(m_data, 0, 2, i);
+		else {
+			tmp = (2 - Zosc*invM) * peek(m_data, 0, i) 
+				+ (Zosc * invM - 1) * peek(m_data,1, i)
+				+ (peek(m_data,2, i)) * invM;
+			poke(m_data, peek(m_data, 0, i) , 1, i);
+			poke(m_data,tmp, 0, i);
+			poke(m_data, 0, 2, i);
+			}
+	}
+	
+	// regular springs between adjacent masses
+	
+	for(i=0; i< data_chans-1; i+=1) {
+		x1 = peek(m_data, 0, i);
+		x1r = peek(m_data, 1, i);
+		x2 = peek(m_data, 0, i+1);
+		x2r = peek(m_data, 1, i+1);
+	
+		f = K * (x1 - x2) + 
+			Z * ((x1-x1r) - (x2-x2r)) ;
+	
+		poke(m_data, peek(m_data,2, i) - f, 2, i);
+		poke(m_data, peek(m_data,2, i+1) + f, 2, i+1);
+
+		}
+		
+	for(i=0; i< data_chans-2; i+=1) {
+		x1 = peek(m_data, 0, i);
+		x1r = peek(m_data, 1, i);
+		x2 = peek(m_data, 0, i+2);
+		x2r = peek(m_data, 1, i+2);
+	
+		f = Ks * (x1 - x2) ;
+	
+		poke(m_data, peek(m_data,2, i) - f, 2, i);
+		poke(m_data, peek(m_data,2, i+2) + f, 2, i+2);
+
+		}
+		x1 = peek(m_data, 0, data_chans-2);
+		x1r = peek(m_data, 1, data_chans-2);
+		x2 = peek(m_data, 0, data_chans-1);
+		x2r = peek(m_data, 1, data_chans-1);
+	
+		f = Ks * (x1 - x2) ;
+	
+		poke(m_data, peek(m_data,2, data_chans-2) - f, 2, data_chans-2);
+		poke(m_data, peek(m_data,2, data_chans-1) + f, 2, data_chans-1);
+	
+	// extended stencil for the stiff connections
+	
+	/*for(i=0; i< data_chans-1; i+=1) {
+		x1 = peek(m_data, 0, i);
+		x2 = 0;
+		
+		if(i < data_chans-2)
+			x2 = peek(m_data, 0, i+1);
+		else
+			x2 = peek(m_data, 0, i+1);
+
+	
+		f = Ks * (x1 - x2);
+	
+		poke(m_data, peek(m_data,2, i) - f, 2, i);
+		
+		if(i < data_chans-2)
+			poke(m_data, peek(m_data,2, i+1) + f, 2, i+1);
+		else
+			poke(m_data, peek(m_data,2, i+1) + f, 2, i+1);
+
+		}*/
+	return 0;
+}
+
+
+get_two_mass_ponderation(mult_data, val){
+	
+	data_chans = channels(mult_data);
+	
+	point = val * data_chans;
+	
+	m1 = floor(point);
+	m2 = m1 + 1;
+	if(m2 > data_chans)
+		m2 = data_chans;
+		
+	alpha = pow(point - m1, 1);	
+		
+	return m1, m2, alpha;	
+}
+
+compute_moving_contact(mult_data, c_data, zone, K, Z, thresh ){
+	
+	m1, m2, alpha = get_two_mass_ponderation(mult_data, zone);
+	
+	x1 = peek(c_data, 0);
+	x1r = peek(c_data, 1);
+	x2 = peek(mult_data, 0, m1);
+	x2r = peek(mult_data, 1, m1);
+	
+	f = (1-alpha)*(K * (x1 - x2) + Z * ((x1-x1r) - (x2-x2r))) ;
+	
+	if ((x1-x2) > 0){
+		poke(c_data, peek(mult_data,2) - f, 2);
+		poke(mult_data, peek(mult_data,2, m1) + f, 2, m1);
+
+	}
+	
+	x1 = thresh;
+	x1r = thresh;
+	x2 = peek(mult_data, 0, m1);
+	x2r = peek(mult_data, 1, m1);
+	
+	f = (1-alpha)*(K * (x1 - x2) + 0 * ((x1-x1r) - (x2-x2r))) ;
+	if ((x1-x2) < 0){
+		poke(mult_data, peek(mult_data,2, m1) + f, 2, m1);
+
+	}
+	
+	x1 = peek(c_data, 0);
+	x1r = peek(c_data, 1);
+	x2 = peek(mult_data, 0, m2);
+	x2r = peek(mult_data, 1, m2);
+	
+	
+	f = alpha*(K * (x1 - x2) + Z * ((x1-x1r) - (x2-x2r))) ;
+	
+	if ((x1-x2) > 0){
+		poke(c_data, peek(mult_data,2) - f, 2);
+		poke(mult_data, peek(mult_data,2, m2) + f, 2, m2);
+
+	}
+	
+	x1 = thresh;
+	x1r = thresh;
+	x2 = peek(mult_data, 0, m2);
+	x2r = peek(mult_data, 1, m2);
+	
+	f = (alpha)*(K * (x1 - x2) + 0 * ((x1-x1r) - (x2-x2r))) ;
+	if ((x1-x2) < 0){
+		poke(mult_data, peek(mult_data,2, m2) + f, 2, m2);
+	}	
+
+	return m1, m2, alpha;
+}
+
+
+
+calculate_bow_force(nlZ, nls, x1, x1r, x2, x2r){
+	
+	f = 0;
+	vel = ((x1-x1r) - (x2-x2r));
+	
+	f = nlZ*sqrt(2*nls)*vel*exp(-nls*vel*vel + 1/2);
+
+	/*
+	sharpness = 3;
+	tip_vel = nls / sharpness;
+	
+	dampZ = nlZ ;
+	slipZ = nlZ  * 0.25;
+		
+	if(abs(vel) < (tip_vel))  {
+		f = dampZ * vel ;
+	}
+	else if(abs(vel) < nls)  {
+		if(vel > 0) 
+			f = tip_vel * dampZ - slipZ * vel ;
+		else
+			f = - tip_vel * dampZ - slipZ * vel ;
+	}
+	
+	else f = 0.;*/
+	return f;
+}
+
+
+compute_moving_nlBow(mult_data, m2_data, zone, nlZ, nls){
+
+	m1, m2, alpha = get_two_mass_ponderation(mult_data, zone);
+
+	
+	x1 = peek(mult_data, 0, m1);
+	x1r = peek(mult_data, 1, m1);
+	x2 = peek(m2_data, 0);
+	x2r = peek(m2_data, 1);
+	
+	f = calculate_bow_force((1-alpha) * nlZ, nls, x1, x1r, x2, x2r);
+	
+	poke(mult_data, peek(mult_data,2, m1) - f, 2, m1);
+	poke(m2_data, peek(m2_data,2) + f, 2);
+	
+	x1 = peek(mult_data, 0, m2);
+	x1r = peek(mult_data, 1, m2);
+	x2 = peek(m2_data, 0);
+	x2r = peek(m2_data, 1);
+	
+	f = calculate_bow_force(alpha * nlZ, nls, x1, x1r, x2, x2r);
+	
+	poke(mult_data, peek(mult_data,2, m2) - f, 2, m2);
+	poke(m2_data, peek(m2_data,2) + f, 2);	
+	
+	
+	return f;
+}
+
+
+
+compute_conditional_damper_at(mult_data, m2_data, nb, Z){
+	
+	x1 = peek(mult_data, 0, nb);
+	x1r = peek(mult_data, 1, nb);
+	x2 = peek(m2_data, 0);
+	x2r = peek(m2_data, 1);
+	
+	f = 0;
+	
+	if ((x1-x2) > 0){
+		f = Z * ((x1-x1r) - (x2-x2r)) ;
+	
+		poke(mult_data, peek(mult_data,2, nb) - f, 2, nb);
+		poke(m2_data, peek(m2_data,2) + f, 2);	
+	}
+	return f;
+}

@@ -1,0 +1,208 @@
+{
+	"patcher" : 	{
+		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 8,
+			"minor" : 0,
+			"revision" : 8,
+			"architecture" : "x64",
+			"modernui" : 1
+		}
+,
+		"classnamespace" : "dsp.gen",
+		"rect" : [ -2325.0, 42.0, 1700.0, 1107.0 ],
+		"bglocked" : 0,
+		"openinpresentation" : 0,
+		"default_fontsize" : 12.0,
+		"default_fontface" : 0,
+		"default_fontname" : "Arial",
+		"gridonopen" : 1,
+		"gridsize" : [ 15.0, 15.0 ],
+		"gridsnaponopen" : 1,
+		"objectsnaponopen" : 1,
+		"statusbarvisible" : 2,
+		"toolbarvisible" : 1,
+		"lefttoolbarpinned" : 0,
+		"toptoolbarpinned" : 0,
+		"righttoolbarpinned" : 0,
+		"bottomtoolbarpinned" : 0,
+		"toolbars_unpinned_last_save" : 0,
+		"tallnewobj" : 0,
+		"boxanimatetime" : 200,
+		"enablehscroll" : 1,
+		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
+		"description" : "",
+		"digest" : "",
+		"tags" : "",
+		"style" : "",
+		"subpatcher_template" : "",
+		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-22",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 20.0, 568.799987999999985, 49.0, 22.0 ],
+					"text" : "dcblock"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-8",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 168.199996999999996, 15.0, 30.0, 22.0 ],
+					"text" : "in 3"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-7",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 94.099997999999999, 15.0, 30.0, 22.0 ],
+					"text" : "in 2"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-6",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 242.300003000000004, 609.0, 37.0, 22.0 ],
+					"text" : "out 4"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-3",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 20.0, 15.0, 30.0, 22.0 ],
+					"text" : "in 1"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-2",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 168.199996999999996, 609.0, 37.0, 22.0 ],
+					"text" : "out 3"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-1",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 94.100005999999993, 609.0, 37.0, 22.0 ],
+					"text" : "out 2"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"code" : "require(\"migen-lib\");\r\nrequire(\"custom-code\");\r\nrequire(\"migen-integrated\");\r\nrequire(\"migen-proxies\");\r\n\r\nBuffer string1;\r\nBuffer mesh1;\r\n\r\n// Model data structures\r\n\r\nData str1(3, 160);\r\n\r\nData mesh(3, 80);\r\n\r\nData gnd(3);\r\nData fp1(3);\r\n\r\n\r\nData bowMass1(3);\r\n\r\nData proxy_16(3);\r\nData proxy_14(3);\r\nData proxy_12(3);\r\n\r\nData inProx_1(3);\r\nData inProx_2(3);\r\n\r\nData sm_prox1(3);\r\nData sm_prox2(3);\r\n\r\nData sm_prox3(3);\r\nData sm_prox4(3);\r\n\r\nData inHarm(3);\r\n\r\n\r\n// Control Rate Parameters\r\nParam Z(0.000003);\r\nParam K1(0.2);\r\nParam K3(0.);\r\n\r\nParam M(1.);\r\nParam cK(0.01);\r\nParam cZ(0.1);\r\n\r\nParam dZ(0.1);\r\n\r\nParam nlscale(0.00005);\r\nParam nlz(0.08);\r\n\r\nParam exPos(0.9);\r\nParam lPos(0.95);\r\n\r\nParam stiffness(0.2);\r\n\r\nParam Kc(0);\r\n\r\n// Model initialisation flag\r\nHistory model_init(0);\r\n\r\nHistory dim(1);\r\nHistory chan(1);\r\nHistory render_cpt(0);\r\n\r\nHistory pos1(0);\r\n\r\n\r\nbowPos1 = in1;\r\nfinger1 = in2;\r\n\r\n\r\n\r\n\r\n// Model init phase\r\n\r\n\r\nif(model_init == 0){\r\n\tinit_mat(gnd, 0.5, 0.5);\r\n\tinit_mat(fp1, -0.1, -0.1);\r\n\t\r\n\tinit_mat(proxy_16, 0, 0);\r\n\tinit_mat(proxy_14, 0, 0);\r\n\tinit_mat(proxy_12, 0, 0);\r\n\t\r\n\tinit_mat(inProx_1, 0, 0);\r\n\tinit_mat(inProx_2, 0, 0);\r\n\t\r\n\tinit_mat(sm_prox1, 0, 0);\r\n\tinit_mat(sm_prox2, 0, 0);\r\n\tinit_mat(sm_prox3, 0, 0);\r\n\tinit_mat(sm_prox4, 0, 0);\r\n\t\r\n\tinit_mat(inHarm, 0, 0);\r\n\t\r\n\tinit_mat(bowMass1, 0., 0.);\r\n\t\r\n\tdim, chan = init_multiple_masses(str1, 0., 0.);\r\n\t\r\n\tinit_multiple_masses(mesh, 0, 0);\r\n\t\r\n\t// Raise init flag\r\n\t\r\n\tmodel_init = 1;\r\n}\r\n\r\n\r\n//pos1 = pos1 + bowVel1 / 44100;\r\n\r\nupdate_input_pos(bowMass1, bowPos1);\r\nupdate_input_pos(fp1, 0.01);\r\n\r\nupdate_input_pos(inHarm, in3);\r\n\r\ncompute_stiff_string(str1, M, K1, K1 * stiffness, Z);\r\n\r\ncompute_corner_mesh(mesh, 4, 20, 100., 0.1, 0.001);\r\n\r\nm1, m2, alpha = compute_moving_contact(str1, fp1, finger1, cK, cZ, 0.00);\r\n\r\nbp3 = bowPress1*bowPress1*bowPress1;\r\n\r\nset_proxy_pos_string(proxy_16, str1, exPos);\r\nset_proxy_pos_string(proxy_14, str1, exPos-0.01);\r\nset_proxy_pos_string(proxy_12, str1, exPos-0.02);\r\n\r\nset_proxy_pos_string(inProx_1, str1, 0.95);\r\nset_proxy_pos_string(inProx_2, str1, 1);\r\n\r\nset_proxy_pos_string(sm_prox1, str1, 0.94);\r\nset_proxy_pos_mesh(sm_prox2, mesh, 4, 20, 0.5, 0.5);\r\n\r\nset_proxy_pos_string(sm_prox3, str1, 0.5);\r\nset_proxy_pos_mesh(sm_prox4, mesh, 4, 20, 0.3, 0.2);\r\n\r\ncompute_nlBow(bowMass1, proxy_16, nlz, nlscale);\r\ncompute_nlBow(bowMass1, proxy_14, nlz, nlscale);\r\ncompute_nlBow(bowMass1, proxy_12, nlz, nlscale);\r\n\r\ncompute_contact(inProx_1, inProx_2, K3, 0.001, 0);\r\n\r\ncompute_spring_damper(sm_prox1, sm_prox2, Kc, 0.0, 0);\r\ncompute_spring_damper(sm_prox3, sm_prox4, Kc, 0.0, 0);\r\n\r\n//compute_moving_nlBow(str1, bowMass1, exPos,  bp3 *nlz, (1+0.0*bowPress1) *nlscale);\r\n//compute_moving_nlBow(str1, bowMass1, exPos+0.01, bp3 *nlz, (1+0.0*bowPress1) *nlscale);\r\n//compute_moving_nlBow(str1, bowMass1, exPos+0.02,  bp3 *nlz, (1+0.0*bowPress1) *nlscale);\r\n\r\ncompute_moving_contact(str1, fp1, finger1-0.1, 0, 0.1, 0.00);\r\ncompute_moving_contact(str1, fp1, finger1-0.12, 0, 0.1, 0.00);\r\ncompute_moving_contact(str1, fp1, finger1-0.13, 0, 0.1, 0.00);\r\ncompute_moving_contact(str1, fp1, finger1-0.14, 0, 0.1, 0.00);\r\ncompute_moving_contact(str1, fp1, finger1-0.15, 0, 0.1, 0.00);\r\ncompute_moving_contact(str1, fp1, finger1-0.2, 0, 0.1, 0.00);\r\n\r\n\r\napply_proxy_frc_string(proxy_16, str1, exPos);\r\napply_proxy_frc_string(proxy_14, str1, exPos-0.01);\r\napply_proxy_frc_string(proxy_12, str1, exPos-0.02);\r\n\r\napply_proxy_frc_string(inProx_1, str1, 0.95);\r\napply_proxy_frc_string(inProx_2, str1, 1);\r\n\r\napply_proxy_frc_string(sm_prox1, str1, 0.94);\r\napply_proxy_frc_mesh(sm_prox2, mesh, 4, 20, 0.5, 0.5);\r\n\r\napply_proxy_frc_string(sm_prox3, str1, 0.5);\r\napply_proxy_frc_mesh(sm_prox4, mesh, 4, 20, 0.3, 0.2);\r\n\r\n\r\n//compute_conditional_damper_at(str1, damp1, 30, dZ);\r\n\r\n//compute_conditional_damper_at(str1, damp1, 33, dZ);\r\n\r\n\r\n\r\n\r\n\r\n\r\nfrc_impulse =0;\r\np = floor(exPos * channels(str1));\r\n//poke(str1, peek(str1,2, p) + bowPress1 * frc_impulse, 2, p);\r\n\r\n\r\n// Output routing\r\n\r\nout1 = listen_at(str1, lPos);\r\nout2 = listen_at(mesh, 15);\r\nout3 = m2;\r\nout4 = alpha;\r\n\r\nif(render_cpt == 0){\r\n\tfor(i = 0; i < channels(str1); i+=1){\r\n\t\tstring1.poke(get_pos_at(str1, i), i, 0);\r\n\t\t}\r\n\tfor(i = 0; i < channels(mesh); i+=1){\r\n\t\tmesh1.poke(get_pos_at(mesh, i), i, 0);\r\n\t\t}\r\n}\r\nrender_cpt = (render_cpt + 1) % 2000;",
+					"fontface" : 0,
+					"fontname" : "Lucida Console",
+					"fontsize" : 14.0,
+					"id" : " phyMdlBox ",
+					"maxclass" : "codebox",
+					"numinlets" : 3,
+					"numoutlets" : 4,
+					"outlettype" : [ "", "", "", "" ],
+					"patching_rect" : [ 12.486955999999999, 153.269562000000008, 846.600006000000121, 409.399994000000049 ]
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : " outbox_1 ",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 20.0, 609.0, 36.0, 22.0 ],
+					"text" : "out 1"
+				}
+
+			}
+ ],
+		"lines" : [ 			{
+				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"source" : [ " phyMdlBox ", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"source" : [ " phyMdlBox ", 2 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-22", 0 ],
+					"source" : [ " phyMdlBox ", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-6", 0 ],
+					"source" : [ " phyMdlBox ", 3 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ " outbox_1 ", 0 ],
+					"source" : [ "obj-22", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ " phyMdlBox ", 0 ],
+					"source" : [ "obj-3", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ " phyMdlBox ", 1 ],
+					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ " phyMdlBox ", 2 ],
+					"source" : [ "obj-8", 0 ]
+				}
+
+			}
+ ],
+		"editing_bgcolor" : [ 0.9, 0.9, 0.9, 1.0 ]
+	}
+
+}
