@@ -1,0 +1,134 @@
+{
+	"patcher" : 	{
+		"fileversion" : 1,
+		"appversion" : 		{
+			"major" : 7,
+			"minor" : 3,
+			"revision" : 1,
+			"architecture" : "x64",
+			"modernui" : 1
+		}
+,
+		"rect" : [ 67.0, 109.0, 700.0, 500.0 ],
+		"editing_bgcolor" : [ 0.9, 0.9, 0.9, 1.0 ],
+		"bglocked" : 0,
+		"openinpresentation" : 0,
+		"default_fontsize" : 12.0,
+		"default_fontface" : 0,
+		"default_fontname" : "Arial",
+		"gridonopen" : 1,
+		"gridsize" : [ 15.0, 15.0 ],
+		"gridsnaponopen" : 1,
+		"objectsnaponopen" : 1,
+		"statusbarvisible" : 2,
+		"toolbarvisible" : 1,
+		"lefttoolbarpinned" : 0,
+		"toptoolbarpinned" : 0,
+		"righttoolbarpinned" : 0,
+		"bottomtoolbarpinned" : 0,
+		"toolbars_unpinned_last_save" : 0,
+		"tallnewobj" : 0,
+		"boxanimatetime" : 200,
+		"enablehscroll" : 1,
+		"enablevscroll" : 1,
+		"devicewidth" : 0.0,
+		"description" : "",
+		"digest" : "",
+		"tags" : "",
+		"style" : "",
+		"subpatcher_template" : "",
+                
+ "boxes" : [ { "box" : 				{
+					"code" : " require(\"migen-lib\");\r\nBuffer motion;\r\nBuffer triangle_membrane;\r\n\r\n// Model data structures\r\nData m_in1(3);\r\nData m18(3);\r\nData m17(3);\r\nData m16(3);\r\nData m15(3);\r\nData m14(3);\r\nData m13(3);\r\nData m12(3);\r\nData m11(3);\r\nData m10(3);\r\nData m9(3);\r\nData m8(3);\r\nData m7(3);\r\nData m6(3);\r\nData m5(3);\r\nData m4(3);\r\nData m3(3);\r\nData m2(3);\r\nData m1(3);\r\nData tribot_m6_0(3);\r\nData tribot_m5_1(3);\r\nData tribot_m5_0(3);\r\nData tribot_m4_2(3);\r\nData tribot_m4_1(3);\r\nData tribot_m4_0(3);\r\nData tribot_m3_3(3);\r\nData tribot_m3_2(3);\r\nData tribot_m3_1(3);\r\nData tribot_m3_0(3);\r\nData tribot_m2_4(3);\r\nData tribot_m2_3(3);\r\nData tribot_m2_2(3);\r\nData tribot_m2_1(3);\r\nData tribot_m2_0(3);\r\nData tribot_m1_5(3);\r\nData tribot_m1_4(3);\r\nData tribot_m1_3(3);\r\nData tribot_m1_2(3);\r\nData tribot_m1_1(3);\r\nData tribot_m1_0(3);\r\nData tribot_m0_6(3);\r\nData tribot_m0_5(3);\r\nData tribot_m0_4(3);\r\nData tribot_m0_3(3);\r\nData tribot_m0_2(3);\r\nData tribot_m0_1(3);\r\nData tribot_m0_0(3);\r\n\r\n// Control Rate Parameters\r\nParam cZ(0.001);\r\nParam cK(0.1);\r\nParam grav(0.02);\r\nParam triZ(0.001);\r\nParam triK(0.1);\r\nParam tribot_Zosc(0.0);\r\nParam tribot_Z(0.01);\r\nParam tribot_K(0.1);\r\nParam tribot_M(1.0);\r\n\r\nParam display_motion(0);\r\n\r\n// Model initialisation flag\r\nHistory model_init(0);\r\nHistory render_cpt(0);\r\n\r\n// Audio Rate Parameters\r\n\r\n// Model init phase\r\n\r\nif(model_init == 0){\r\ninit_mat(m_in1, 0., 0.);\r\ninit_mat(m18, 0., 0.);\r\ninit_mat(m17, 0., 0.);\r\ninit_mat(m16, 0., 0.);\r\ninit_mat(m15, 0., 0.);\r\ninit_mat(m14, 0., 0.);\r\ninit_mat(m13, 0., 0.);\r\ninit_mat(m12, 0., 0.);\r\ninit_mat(m11, 0., 0.);\r\ninit_mat(m10, 0., 0.);\r\ninit_mat(m9, 0., 0.);\r\ninit_mat(m8, 0., 0.);\r\ninit_mat(m7, 0., 0.);\r\ninit_mat(m6, 0., 0.);\r\ninit_mat(m5, 0., 0.);\r\ninit_mat(m4, 0., 0.);\r\ninit_mat(m3, 0., 0.);\r\ninit_mat(m2, 0., 0.);\r\ninit_mat(m1, 0., 0.);\r\ninit_mat(tribot_m6_0, -1., -1.);\r\ninit_mat(tribot_m5_1, -1., -1.);\r\ninit_mat(tribot_m5_0, -1., -1.);\r\ninit_mat(tribot_m4_2, -1., -1.);\r\ninit_mat(tribot_m4_1, -1., -1.);\r\ninit_mat(tribot_m4_0, -1., -1.);\r\ninit_mat(tribot_m3_3, -1., -1.);\r\ninit_mat(tribot_m3_2, -1., -1.);\r\ninit_mat(tribot_m3_1, -1., -1.);\r\ninit_mat(tribot_m3_0, -1., -1.);\r\ninit_mat(tribot_m2_4, -1., -1.);\r\ninit_mat(tribot_m2_3, -1., -1.);\r\ninit_mat(tribot_m2_2, -1., -1.);\r\ninit_mat(tribot_m2_1, -1., -1.);\r\ninit_mat(tribot_m2_0, -1., -1.);\r\ninit_mat(tribot_m1_5, -1., -1.);\r\ninit_mat(tribot_m1_4, -1., -1.);\r\ninit_mat(tribot_m1_3, -1., -1.);\r\ninit_mat(tribot_m1_2, -1., -1.);\r\ninit_mat(tribot_m1_1, -1., -1.);\r\ninit_mat(tribot_m1_0, -1., -1.);\r\ninit_mat(tribot_m0_6, -1., -1.);\r\ninit_mat(tribot_m0_5, -1., -1.);\r\ninit_mat(tribot_m0_4, -1., -1.);\r\ninit_mat(tribot_m0_3, -1., -1.);\r\ninit_mat(tribot_m0_2, -1., -1.);\r\ninit_mat(tribot_m0_1, -1., -1.);\r\ninit_mat(tribot_m0_0, -1., -1.);\r\n\r\n// Raise init flag\r\nmodel_init = 1;\r\n}\r\n\r\n// Model computation\r\nupdate_input_pos(m_in1, in1);\r\ncompute_mass(m18, 2.9, gravity = grav);\r\ncompute_mass(m17, 4.6, gravity = grav);\r\ncompute_mass(m16, 5.2, gravity = grav);\r\ncompute_mass(m15, 5.5, gravity = grav);\r\ncompute_mass(m14, 5., gravity = grav);\r\ncompute_mass(m13, 4., gravity = grav);\r\ncompute_mass(m12, 2.03, gravity = grav);\r\ncompute_mass(m11, 3.5, gravity = grav);\r\ncompute_mass(m10, 3.1, gravity = grav);\r\ncompute_mass(m9, 2.1, gravity = grav);\r\ncompute_mass(m8, 4., gravity = grav);\r\ncompute_mass(m7, 3., gravity = grav);\r\ncompute_mass(m6, 2.8, gravity = grav);\r\ncompute_mass(m5, 2.7, gravity = grav);\r\ncompute_mass(m4, 2.6, gravity = grav);\r\ncompute_mass(m3, 2.4, gravity = grav);\r\ncompute_mass(m2, 2.2, gravity = grav);\r\ncompute_mass(m1, 2., gravity = grav);\r\ncompute_osc(tribot_m6_0, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m5_1, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m5_0, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m4_2, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m4_1, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m4_0, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m3_3, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m3_2, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m3_1, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m3_0, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m2_4, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m2_3, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m2_2, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m2_1, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m2_0, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m1_5, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m1_4, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m1_3, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m1_2, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m1_1, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m1_0, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m0_6, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m0_5, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m0_4, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m0_3, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m0_2, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m0_1, tribot_M, 0, tribot_Zosc);\r\ncompute_osc(tribot_m0_0, tribot_M, 0, tribot_Zosc);\r\ncompute_spring_damper(m_in1, tribot_m0_0, 0.1, 0.01);\r\napply_input_force(tribot_m3_2, in2);\r\ncompute_contact(tribot_m5_1, m18, cK, cZ, 0);\r\ncompute_contact(tribot_m4_1, m17, cK, cZ, 0);\r\ncompute_contact(tribot_m3_2, m16, cK, cZ, 0);\r\ncompute_contact(tribot_m2_0, m15, cK, cZ, 0);\r\ncompute_contact(tribot_m0_3, m14, cK, cZ, 0);\r\ncompute_contact(tribot_m1_1, m13, cK, cZ, 0);\r\ncompute_contact(tribot_m4_2, m12, cK, cZ, 0);\r\ncompute_contact(tribot_m4_1, m11, cK, cZ, 0);\r\ncompute_contact(tribot_m5_0, m10, cK, cZ, 0);\r\ncompute_contact(tribot_m2_4, m9, cK, cZ, 0);\r\ncompute_contact(tribot_m0_1, m8, cK, cZ, 0);\r\ncompute_contact(tribot_m3_1, m7, cK, cZ, 0);\r\ncompute_contact(tribot_m5_1, m6, cK, cZ, 0);\r\ncompute_contact(tribot_m4_1, m5, cK, cZ, 0);\r\ncompute_contact(tribot_m3_2, m4, cK, cZ, 0);\r\ncompute_contact(tribot_m2_0, m3, cK, cZ, 0);\r\ncompute_contact(tribot_m0_3, m2, cK, cZ, 0);\r\ncompute_contact(tribot_m1_1, m1, cK, cZ, 0);\r\ncompute_spring_damper(tribot_m5_1, tribot_m6_0, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m4_2, tribot_m5_1, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m4_1, tribot_m5_0, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m3_3, tribot_m4_2, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m3_2, tribot_m4_1, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m3_1, tribot_m4_0, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m2_4, tribot_m3_3, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m2_3, tribot_m3_2, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m2_2, tribot_m3_1, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m2_1, tribot_m3_0, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m1_5, tribot_m2_4, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m1_4, tribot_m2_3, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m1_3, tribot_m2_2, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m1_2, tribot_m2_1, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m1_1, tribot_m2_0, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m0_6, tribot_m1_5, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m0_5, tribot_m1_4, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m0_4, tribot_m1_3, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m0_3, tribot_m1_2, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m0_2, tribot_m1_1, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m0_1, tribot_m1_0, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m5_0, tribot_m6_0, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m4_1, tribot_m5_1, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m4_0, tribot_m5_0, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m3_2, tribot_m4_2, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m3_1, tribot_m4_1, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m3_0, tribot_m4_0, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m2_3, tribot_m3_3, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m2_2, tribot_m3_2, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m2_1, tribot_m3_1, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m2_0, tribot_m3_0, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m1_4, tribot_m2_4, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m1_3, tribot_m2_3, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m1_2, tribot_m2_2, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m1_1, tribot_m2_1, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m1_0, tribot_m2_0, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m0_5, tribot_m1_5, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m0_4, tribot_m1_4, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m0_3, tribot_m1_3, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m0_2, tribot_m1_2, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m0_1, tribot_m1_1, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m0_0, tribot_m1_0, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m5_0, tribot_m5_1, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m4_1, tribot_m4_2, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m4_0, tribot_m4_1, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m3_2, tribot_m3_3, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m3_1, tribot_m3_2, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m3_0, tribot_m3_1, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m2_3, tribot_m2_4, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m2_2, tribot_m2_3, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m2_1, tribot_m2_2, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m2_0, tribot_m2_1, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m1_4, tribot_m1_5, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m1_3, tribot_m1_4, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m1_2, tribot_m1_3, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m1_1, tribot_m1_2, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m1_0, tribot_m1_1, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m0_5, tribot_m0_6, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m0_4, tribot_m0_5, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m0_3, tribot_m0_4, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m0_2, tribot_m0_3, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m0_1, tribot_m0_2, tribot_K, tribot_Z);\r\ncompute_spring_damper(tribot_m0_0, tribot_m0_1, tribot_K, tribot_Z);\r\n\r\n// Output routing\r\nout3 =  get_pos(m1);\r\nout2 =  get_pos(tribot_m0_1);\r\nout1 =  get_pos(tribot_m5_1);\r\n\r\n// Motion data routing to Max/MSP buffer objects\r\nif (display_motion){\r\nif (render_cpt == 0){\r\nmotion.poke(get_pos(m_in1), 46, 0);\r\nmotion.poke(get_pos(m18), 45, 0);\r\nmotion.poke(get_pos(m17), 44, 0);\r\nmotion.poke(get_pos(m16), 43, 0);\r\nmotion.poke(get_pos(m15), 42, 0);\r\nmotion.poke(get_pos(m14), 41, 0);\r\nmotion.poke(get_pos(m13), 40, 0);\r\nmotion.poke(get_pos(m12), 39, 0);\r\nmotion.poke(get_pos(m11), 38, 0);\r\nmotion.poke(get_pos(m10), 37, 0);\r\nmotion.poke(get_pos(m9), 36, 0);\r\nmotion.poke(get_pos(m8), 35, 0);\r\nmotion.poke(get_pos(m7), 34, 0);\r\nmotion.poke(get_pos(m6), 33, 0);\r\nmotion.poke(get_pos(m5), 32, 0);\r\nmotion.poke(get_pos(m4), 31, 0);\r\nmotion.poke(get_pos(m3), 30, 0);\r\nmotion.poke(get_pos(m2), 29, 0);\r\nmotion.poke(get_pos(m1), 28, 0);\r\ntriangle_membrane.poke(0.0, 27, 2);\r\ntriangle_membrane.poke(0.6000000000000001, 27, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m6_0), 27, 0);\r\nmotion.poke(get_pos(tribot_m6_0), 27, 0);\r\ntriangle_membrane.poke(0.1, 26, 2);\r\ntriangle_membrane.poke(0.5, 26, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m5_1), 26, 0);\r\nmotion.poke(get_pos(tribot_m5_1), 26, 0);\r\ntriangle_membrane.poke(0.0, 25, 2);\r\ntriangle_membrane.poke(0.5, 25, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m5_0), 25, 0);\r\nmotion.poke(get_pos(tribot_m5_0), 25, 0);\r\ntriangle_membrane.poke(0.2, 24, 2);\r\ntriangle_membrane.poke(0.4, 24, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m4_2), 24, 0);\r\nmotion.poke(get_pos(tribot_m4_2), 24, 0);\r\ntriangle_membrane.poke(0.1, 23, 2);\r\ntriangle_membrane.poke(0.4, 23, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m4_1), 23, 0);\r\nmotion.poke(get_pos(tribot_m4_1), 23, 0);\r\ntriangle_membrane.poke(0.0, 22, 2);\r\ntriangle_membrane.poke(0.4, 22, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m4_0), 22, 0);\r\nmotion.poke(get_pos(tribot_m4_0), 22, 0);\r\ntriangle_membrane.poke(0.30000000000000004, 21, 2);\r\ntriangle_membrane.poke(0.30000000000000004, 21, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m3_3), 21, 0);\r\nmotion.poke(get_pos(tribot_m3_3), 21, 0);\r\ntriangle_membrane.poke(0.2, 20, 2);\r\ntriangle_membrane.poke(0.30000000000000004, 20, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m3_2), 20, 0);\r\nmotion.poke(get_pos(tribot_m3_2), 20, 0);\r\ntriangle_membrane.poke(0.1, 19, 2);\r\ntriangle_membrane.poke(0.30000000000000004, 19, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m3_1), 19, 0);\r\nmotion.poke(get_pos(tribot_m3_1), 19, 0);\r\ntriangle_membrane.poke(0.0, 18, 2);\r\ntriangle_membrane.poke(0.30000000000000004, 18, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m3_0), 18, 0);\r\nmotion.poke(get_pos(tribot_m3_0), 18, 0);\r\ntriangle_membrane.poke(0.4, 17, 2);\r\ntriangle_membrane.poke(0.2, 17, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m2_4), 17, 0);\r\nmotion.poke(get_pos(tribot_m2_4), 17, 0);\r\ntriangle_membrane.poke(0.30000000000000004, 16, 2);\r\ntriangle_membrane.poke(0.2, 16, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m2_3), 16, 0);\r\nmotion.poke(get_pos(tribot_m2_3), 16, 0);\r\ntriangle_membrane.poke(0.2, 15, 2);\r\ntriangle_membrane.poke(0.2, 15, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m2_2), 15, 0);\r\nmotion.poke(get_pos(tribot_m2_2), 15, 0);\r\ntriangle_membrane.poke(0.1, 14, 2);\r\ntriangle_membrane.poke(0.2, 14, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m2_1), 14, 0);\r\nmotion.poke(get_pos(tribot_m2_1), 14, 0);\r\ntriangle_membrane.poke(0.0, 13, 2);\r\ntriangle_membrane.poke(0.2, 13, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m2_0), 13, 0);\r\nmotion.poke(get_pos(tribot_m2_0), 13, 0);\r\ntriangle_membrane.poke(0.5, 12, 2);\r\ntriangle_membrane.poke(0.1, 12, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m1_5), 12, 0);\r\nmotion.poke(get_pos(tribot_m1_5), 12, 0);\r\ntriangle_membrane.poke(0.4, 11, 2);\r\ntriangle_membrane.poke(0.1, 11, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m1_4), 11, 0);\r\nmotion.poke(get_pos(tribot_m1_4), 11, 0);\r\ntriangle_membrane.poke(0.30000000000000004, 10, 2);\r\ntriangle_membrane.poke(0.1, 10, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m1_3), 10, 0);\r\nmotion.poke(get_pos(tribot_m1_3), 10, 0);\r\ntriangle_membrane.poke(0.2, 9, 2);\r\ntriangle_membrane.poke(0.1, 9, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m1_2), 9, 0);\r\nmotion.poke(get_pos(tribot_m1_2), 9, 0);\r\ntriangle_membrane.poke(0.1, 8, 2);\r\ntriangle_membrane.poke(0.1, 8, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m1_1), 8, 0);\r\nmotion.poke(get_pos(tribot_m1_1), 8, 0);\r\ntriangle_membrane.poke(0.0, 7, 2);\r\ntriangle_membrane.poke(0.1, 7, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m1_0), 7, 0);\r\nmotion.poke(get_pos(tribot_m1_0), 7, 0);\r\ntriangle_membrane.poke(0.6000000000000001, 6, 2);\r\ntriangle_membrane.poke(0.0, 6, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m0_6), 6, 0);\r\nmotion.poke(get_pos(tribot_m0_6), 6, 0);\r\ntriangle_membrane.poke(0.5, 5, 2);\r\ntriangle_membrane.poke(0.0, 5, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m0_5), 5, 0);\r\nmotion.poke(get_pos(tribot_m0_5), 5, 0);\r\ntriangle_membrane.poke(0.4, 4, 2);\r\ntriangle_membrane.poke(0.0, 4, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m0_4), 4, 0);\r\nmotion.poke(get_pos(tribot_m0_4), 4, 0);\r\ntriangle_membrane.poke(0.30000000000000004, 3, 2);\r\ntriangle_membrane.poke(0.0, 3, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m0_3), 3, 0);\r\nmotion.poke(get_pos(tribot_m0_3), 3, 0);\r\ntriangle_membrane.poke(0.2, 2, 2);\r\ntriangle_membrane.poke(0.0, 2, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m0_2), 2, 0);\r\nmotion.poke(get_pos(tribot_m0_2), 2, 0);\r\ntriangle_membrane.poke(0.1, 1, 2);\r\ntriangle_membrane.poke(0.0, 1, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m0_1), 1, 0);\r\nmotion.poke(get_pos(tribot_m0_1), 1, 0);\r\ntriangle_membrane.poke(0.0, 0, 2);\r\ntriangle_membrane.poke(0.0, 0, 1);\r\ntriangle_membrane.poke(get_pos(tribot_m0_0), 0, 0);\r\nmotion.poke(get_pos(tribot_m0_0), 0, 0);\r\n}\r\nrender_cpt = (render_cpt + 1) % 200;}\r\n ",
+					"fontface" : 0,
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : " phyMdlBox ",
+					"maxclass" : "codebox",
+					"numinlets" : 2,
+					"numoutlets" : 3,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 20.0, 50.0, 450.0, 300.0 ],
+					"style" : ""
+				} }, { "box" : 				{
+					"id" : " inbox_1 ",
+					"maxclass" : "newobj",
+					"numinlets" :  0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 70.0, 20.0, 30.0, 22.0 ],
+					"style" : "",
+					"text" : " in 1 "
+				} }, { "box" : 				{
+					"id" : " inbox_2 ",
+					"maxclass" : "newobj",
+					"numinlets" :  0,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 120.0, 20.0, 30.0, 22.0 ],
+					"style" : "",
+					"text" : " in 2 "
+				} }, { "box" : 				{
+					"id" : " outbox_1 ",
+					"maxclass" : "newobj",
+					"numinlets" :  1,
+					"numoutlets" : 0,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 70.0, 420.0, 30.0, 22.0 ],
+					"style" : "",
+					"text" : " out 1 "
+				} }, { "box" : 				{
+					"id" : " outbox_2 ",
+					"maxclass" : "newobj",
+					"numinlets" :  1,
+					"numoutlets" : 0,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 120.0, 420.0, 30.0, 22.0 ],
+					"style" : "",
+					"text" : " out 2 "
+				} }, { "box" : 				{
+					"id" : " outbox_3 ",
+					"maxclass" : "newobj",
+					"numinlets" :  1,
+					"numoutlets" : 0,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 170.0, 420.0, 30.0, 22.0 ],
+					"style" : "",
+					"text" : " out 3 "
+				} }],
+ "lines" : [   {
+				"patchline" : 				{
+					"destination" : [ " phyMdlBox ", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ " inbox_1 ", 0 ]
+				}
+			},  {
+				"patchline" : 				{
+					"destination" : [ " phyMdlBox ", 1 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ " inbox_2 ", 0 ]
+				}
+			},  {
+				"patchline" : 				{
+					"destination" : [ " outbox_1 ", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ " phyMdlBox ", 0 ]
+				}
+			},  {
+				"patchline" : 				{
+					"destination" : [ " outbox_2 ", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ " phyMdlBox ", 1 ]
+				}
+			},  {
+				"patchline" : 				{
+					"destination" : [ " outbox_3 ", 0 ],
+					"disabled" : 0,
+					"hidden" : 0,
+					"source" : [ " phyMdlBox ", 2 ]
+				}
+			}] } } 

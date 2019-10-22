@@ -1,0 +1,162 @@
+@tribot_M param 1.0
+@tribot_K param 0.1
+@tribot_Z param 0.01
+@tribot_Zosc param 0.0
+
+@tribot_m0_0 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.0 0.0
+@tribot_m0_1 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.0 0.1
+@tribot_m0_2 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.0 0.2
+@tribot_m0_3 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.0 0.30000000000000004
+@tribot_m0_4 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.0 0.4
+@tribot_m0_5 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.0 0.5
+@tribot_m0_6 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.0 0.6000000000000001
+@tribot_m1_0 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.1 0.0
+@tribot_m1_1 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.1 0.1
+@tribot_m1_2 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.1 0.2
+@tribot_m1_3 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.1 0.30000000000000004
+@tribot_m1_4 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.1 0.4
+@tribot_m1_5 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.1 0.5
+@tribot_m2_0 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.2 0.0
+@tribot_m2_1 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.2 0.1
+@tribot_m2_2 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.2 0.2
+@tribot_m2_3 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.2 0.30000000000000004
+@tribot_m2_4 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.2 0.4
+@tribot_m3_0 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.30000000000000004 0.0
+@tribot_m3_1 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.30000000000000004 0.1
+@tribot_m3_2 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.30000000000000004 0.2
+@tribot_m3_3 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.30000000000000004 0.30000000000000004
+@tribot_m4_0 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.4 0.0
+@tribot_m4_1 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.4 0.1
+@tribot_m4_2 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.4 0.2
+@tribot_m5_0 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.5 0.0
+@tribot_m5_1 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.5 0.1
+@tribot_m6_0 osc tribot_M 0 tribot_Zosc -1. -1. triangle_membrane 0.6000000000000001 0.0
+
+@tribot_r0 spring @tribot_m0_0 @tribot_m0_1 tribot_K tribot_Z
+@tribot_r1 spring @tribot_m0_1 @tribot_m0_2 tribot_K tribot_Z
+@tribot_r2 spring @tribot_m0_2 @tribot_m0_3 tribot_K tribot_Z
+@tribot_r3 spring @tribot_m0_3 @tribot_m0_4 tribot_K tribot_Z
+@tribot_r4 spring @tribot_m0_4 @tribot_m0_5 tribot_K tribot_Z
+@tribot_r5 spring @tribot_m0_5 @tribot_m0_6 tribot_K tribot_Z
+@tribot_r6 spring @tribot_m1_0 @tribot_m1_1 tribot_K tribot_Z
+@tribot_r7 spring @tribot_m1_1 @tribot_m1_2 tribot_K tribot_Z
+@tribot_r8 spring @tribot_m1_2 @tribot_m1_3 tribot_K tribot_Z
+@tribot_r9 spring @tribot_m1_3 @tribot_m1_4 tribot_K tribot_Z
+@tribot_r10 spring @tribot_m1_4 @tribot_m1_5 tribot_K tribot_Z
+@tribot_r11 spring @tribot_m2_0 @tribot_m2_1 tribot_K tribot_Z
+@tribot_r12 spring @tribot_m2_1 @tribot_m2_2 tribot_K tribot_Z
+@tribot_r13 spring @tribot_m2_2 @tribot_m2_3 tribot_K tribot_Z
+@tribot_r14 spring @tribot_m2_3 @tribot_m2_4 tribot_K tribot_Z
+@tribot_r15 spring @tribot_m3_0 @tribot_m3_1 tribot_K tribot_Z
+@tribot_r16 spring @tribot_m3_1 @tribot_m3_2 tribot_K tribot_Z
+@tribot_r17 spring @tribot_m3_2 @tribot_m3_3 tribot_K tribot_Z
+@tribot_r18 spring @tribot_m4_0 @tribot_m4_1 tribot_K tribot_Z
+@tribot_r19 spring @tribot_m4_1 @tribot_m4_2 tribot_K tribot_Z
+@tribot_r20 spring @tribot_m5_0 @tribot_m5_1 tribot_K tribot_Z
+
+@tribot_r21 spring @tribot_m0_0 @tribot_m1_0 tribot_K tribot_Z
+@tribot_r22 spring @tribot_m0_1 @tribot_m1_1 tribot_K tribot_Z
+@tribot_r23 spring @tribot_m0_2 @tribot_m1_2 tribot_K tribot_Z
+@tribot_r24 spring @tribot_m0_3 @tribot_m1_3 tribot_K tribot_Z
+@tribot_r25 spring @tribot_m0_4 @tribot_m1_4 tribot_K tribot_Z
+@tribot_r26 spring @tribot_m0_5 @tribot_m1_5 tribot_K tribot_Z
+@tribot_r27 spring @tribot_m1_0 @tribot_m2_0 tribot_K tribot_Z
+@tribot_r28 spring @tribot_m1_1 @tribot_m2_1 tribot_K tribot_Z
+@tribot_r29 spring @tribot_m1_2 @tribot_m2_2 tribot_K tribot_Z
+@tribot_r30 spring @tribot_m1_3 @tribot_m2_3 tribot_K tribot_Z
+@tribot_r31 spring @tribot_m1_4 @tribot_m2_4 tribot_K tribot_Z
+@tribot_r32 spring @tribot_m2_0 @tribot_m3_0 tribot_K tribot_Z
+@tribot_r33 spring @tribot_m2_1 @tribot_m3_1 tribot_K tribot_Z
+@tribot_r34 spring @tribot_m2_2 @tribot_m3_2 tribot_K tribot_Z
+@tribot_r35 spring @tribot_m2_3 @tribot_m3_3 tribot_K tribot_Z
+@tribot_r36 spring @tribot_m3_0 @tribot_m4_0 tribot_K tribot_Z
+@tribot_r37 spring @tribot_m3_1 @tribot_m4_1 tribot_K tribot_Z
+@tribot_r38 spring @tribot_m3_2 @tribot_m4_2 tribot_K tribot_Z
+@tribot_r39 spring @tribot_m4_0 @tribot_m5_0 tribot_K tribot_Z
+@tribot_r40 spring @tribot_m4_1 @tribot_m5_1 tribot_K tribot_Z
+@tribot_r41 spring @tribot_m5_0 @tribot_m6_0 tribot_K tribot_Z
+
+@tribot_r42 spring @tribot_m0_1 @tribot_m1_0 tribot_K tribot_Z
+@tribot_r43 spring @tribot_m0_2 @tribot_m1_1 tribot_K tribot_Z
+@tribot_r44 spring @tribot_m0_3 @tribot_m1_2 tribot_K tribot_Z
+@tribot_r45 spring @tribot_m0_4 @tribot_m1_3 tribot_K tribot_Z
+@tribot_r46 spring @tribot_m0_5 @tribot_m1_4 tribot_K tribot_Z
+@tribot_r47 spring @tribot_m0_6 @tribot_m1_5 tribot_K tribot_Z
+@tribot_r48 spring @tribot_m1_1 @tribot_m2_0 tribot_K tribot_Z
+@tribot_r49 spring @tribot_m1_2 @tribot_m2_1 tribot_K tribot_Z
+@tribot_r50 spring @tribot_m1_3 @tribot_m2_2 tribot_K tribot_Z
+@tribot_r51 spring @tribot_m1_4 @tribot_m2_3 tribot_K tribot_Z
+@tribot_r52 spring @tribot_m1_5 @tribot_m2_4 tribot_K tribot_Z
+@tribot_r53 spring @tribot_m2_1 @tribot_m3_0 tribot_K tribot_Z
+@tribot_r54 spring @tribot_m2_2 @tribot_m3_1 tribot_K tribot_Z
+@tribot_r55 spring @tribot_m2_3 @tribot_m3_2 tribot_K tribot_Z
+@tribot_r56 spring @tribot_m2_4 @tribot_m3_3 tribot_K tribot_Z
+@tribot_r57 spring @tribot_m3_1 @tribot_m4_0 tribot_K tribot_Z
+@tribot_r58 spring @tribot_m3_2 @tribot_m4_1 tribot_K tribot_Z
+@tribot_r59 spring @tribot_m3_3 @tribot_m4_2 tribot_K tribot_Z
+@tribot_r60 spring @tribot_m4_1 @tribot_m5_0 tribot_K tribot_Z
+@tribot_r61 spring @tribot_m4_2 @tribot_m5_1 tribot_K tribot_Z
+@tribot_r62 spring @tribot_m5_1 @tribot_m6_0 tribot_K tribot_Z
+
+
+
+# coupling between triangles
+@triK param 0.1
+@triZ param 0.001
+
+@grav param 0.02
+
+@m1 massG 2. grav 0. 0.
+@m2 massG 2.2 grav 0. 0.
+@m3 massG 2.4 grav 0. 0.
+@m4 massG 2.6 grav 0. 0.
+@m5 massG 2.7 grav 0. 0.
+@m6 massG 2.8 grav 0. 0. 
+
+@m7 massG 3. grav 0. 0.
+@m8 massG 4. grav 0. 0.
+@m9 massG 2.1 grav 0. 0.
+@m10 massG 3.1 grav 0. 0.
+@m11 massG 3.5 grav 0. 0.
+@m12 massG 2.03 grav 0. 0. 
+
+@m13 massG 4. grav 0. 0.
+@m14 massG 5. grav 0. 0.
+@m15 massG 5.5 grav 0. 0.
+@m16 massG 5.2 grav 0. 0.
+@m17 massG 4.6 grav 0. 0.
+@m18 massG 2.9 grav 0. 0. 
+
+@cK param 0.1
+@cZ param 0.001
+
+@c1 contact @tribot_m1_1 @m1 cK cZ 0
+@c3 contact @tribot_m0_3 @m2 cK cZ 0
+@c5 contact @tribot_m2_0 @m3 cK cZ 0
+@c7 contact @tribot_m3_2 @m4 cK cZ 0
+@c9 contact @tribot_m4_1 @m5 cK cZ 0
+@c11 contact @tribot_m5_1 @m6 cK cZ 0
+
+@c1 contact @tribot_m3_1 @m7 cK cZ 0
+@c3 contact @tribot_m0_1 @m8 cK cZ 0
+@c5 contact @tribot_m2_4 @m9 cK cZ 0
+@c7 contact @tribot_m5_0 @m10 cK cZ 0
+@c9 contact @tribot_m4_1 @m11 cK cZ 0
+@c11 contact @tribot_m4_2 @m12 cK cZ 0
+
+@c1 contact @tribot_m1_1 @m13 cK cZ 0
+@c3 contact @tribot_m0_3 @m14 cK cZ 0
+@c5 contact @tribot_m2_0 @m15 cK cZ 0
+@c7 contact @tribot_m3_2 @m16 cK cZ 0
+@c9 contact @tribot_m4_1 @m17 cK cZ 0
+@c11 contact @tribot_m5_1 @m18 cK cZ 0
+
+@out1 posOutput @tribot_m5_1
+@out2 posOutput @tribot_m0_1
+@out3 posOutput @m1
+
+
+@in1 posInput 0.
+@in2 frcInput @tribot_m3_2
+
+@s1 spring @in1 @tribot_m0_0 0.1 0.01
